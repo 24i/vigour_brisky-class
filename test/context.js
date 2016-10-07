@@ -182,7 +182,7 @@ test('context - static + state - change state', function (t) {
 
   state.set({ classyState: true })
 
-  t.equals(elem.childNodes[0].className, 'water burn', 'initial')
+  t.equals(elem.childNodes[0].className, 'water burn', 'update')
 
   t.end()
 })
