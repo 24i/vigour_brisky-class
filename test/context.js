@@ -159,3 +159,30 @@ test('context - remove field on inherited class', function (t) {
   t.equals(elem.childNodes[1].className, 'hello', '2 after removal of $root.bal')
   t.end()
 })
+
+test('context - static + state - change state', function (t) {
+  const state = s({})
+
+  const elem = render({
+    types: {
+      elem: {
+        class: {
+          val: 'fire',
+          burn: { $: 'classyState' }
+        }
+      }
+    },
+    elem1: {
+      type: 'elem',
+      class: 'water'
+    }
+  }, state)
+
+  t.equals(elem.childNodes[0].className, 'water', 'initial')
+
+  state.set({ classyState: true })
+
+  t.equals(elem.childNodes[0].className, 'water burn', 'initial')
+
+  t.end()
+})
