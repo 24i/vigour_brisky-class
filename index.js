@@ -19,15 +19,17 @@ exports.properties = {
         setClassName(target.keys().length ? parseStore(val, store) : val, node)
       },
       state (target, s, type, stamp, subs, tree, id, pid, store) {
-        var val = s && target.$ ? target.compute(s) : target.compute()
-        if (val === true || target.useKey) {
-          const key = parseKey(target, id)
-          val = typeof val === 'string' ? (val + ' ' + key) : key
-        } else if (typeof val === 'object') {
-          val = ''
+        if (type !== 'remove') {
+          let val = s && target.$ ? target.compute(s) : target.compute()
+          if (val === true || target.useKey) {
+            const key = parseKey(target, id)
+            val = typeof val === 'string' ? (val + ' ' + key) : key
+          } else if (typeof val === 'object') {
+            val = ''
+          }
+          const node = getParent(type, stamp, subs, tree, pid)
+          setClassName(target.keys().length ? parseStore(val, store) : val, node)
         }
-        const node = getParent(type, stamp, subs, tree, pid)
-        setClassName(target.keys().length ? parseStore(val, store) : val, node)
       }
     }
   }
